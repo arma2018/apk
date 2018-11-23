@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>FORMULARIO COTIZA TU VIAJE</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <!-- Minified JS library -->
+        <script src="js/jquery.min.js"></script>
+    </head>
+    <body>
+
+
+           <div class="container"
+                    <div class="form-group">
+                        <label class="control-label" for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Introduzca su nombre" required autofocus />
+                    </div>            
+                    <div class="form-group">
+                        <label class="control-label" for="tipo">Motivo de Contacto</label>
+                        <select name="Motivo" class="form-control" id="tipo">
+                            <option value="Turismo">Turismo</option>
+                            <option value="Ejecutivo">Ejecutivo</option>
+                            <option value="Escolar">Escolar</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="direccion">Dirección</label>
+                        <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Introduzca dirección" required />
+                    </div>
+                    <div class="form-group">
+                            <label class="control-label" for="telc">Telefono casa</label>
+                            <input type="number" class="form-control" id="telc" name="telc" placeholder="Introduzca el número de casa" required />
+                       </div>
+                    <div class="form-group">
+                                <label class="control-label" for="telm">Telefono movil</label>
+                                <input type="number" class="form-control" id="telm" name="telm" placeholder="Introduzca el numero de celular" required />
+                            </div>
+                    <div class="form-group">
+                        <label class="control-label" for="correo">Correo Electrónico</label>
+                        <input type="email" class="form-control" id="correo" name="correo" placeholder="Introduzca su correo electrónico" required />
+                    </div>
+                    <div class="form-group">
+                            <label class="control-label" for="lugaro">Lugar de Origen</label>
+                            <textarea rows="5" cols="30" class="form-control" id="lugaro" name="lugaro" placeholder="Introduzca su lugar de origen" required ></textarea>
+                    </div>
+                    <div class="form-group">
+                            <label class="control-label" for="lugard">Lugar de Destino</label>
+                            <textarea rows="5" cols="30" class="form-control" id="lugard" name="lugard" placeholder="Introduzca su lugar de destino" required ></textarea>
+                    </div>
+                    <div class="col-md-6">
+                            <p>Fecha de Salida</p>
+                            <input size="16" type="date" class="form-control" id="fechas" >
+                    </div>
+                    <div class="col-md-6">
+                            <p>Fecha de Llegada</p>
+                            <input size="16" type="date" class="form-control" id="fechad">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="descripcion">Descripción</label>
+                        <textarea rows="5" cols="30" class="form-control" id="descripcion" name="descripcion" placeholder="Introduzca una descripción" required ></textarea>
+                    </div>
+                    <div class="form-group">                
+                        <input type="button"  class="btn btn-primary" id="btnenviar" value="Enviar">
+                        <input type="reset" class="btn btn-default" value="Limpiar">                
+                    </div>
+                    <div id="respuesta" style="display: none;"></div>
+            </div>      
+   
+            <script>
+                $(document).ready(function(){
+                    $("#btnenviar").click(function(){
+                        // obtener datos
+                        var datos=[
+                            $("#nombre").val(),
+                            $("#tipo").text(),
+                            $("#direccion").val(),
+                            $("#telc").val(),
+                            $("#telm").val(),
+                            $("#correo").val(),
+                            $("#lugaro").val(),
+                            $("#lugard").val(),
+                            $("#fechas").val(),
+                            $("#fechad").val(),
+                            $("#descripcion").val()
+                        ];
+                        $("#btnenviar").prop('disabled',true);
+                        datos = JSON.stringify(datos);
+                        $.post("https://pmovil.herokuapp.com/data.php",{d:datos},function(data){
+                            $("#btnenviar").prop('disabled',false);
+                            alert(data);
+                        });
+                    });
+                });
+            
+            </script>
+
+<script>
+    setTimeout(function(){windows.reload();},5000);
+</script>
+
+    </body>
+</html>
